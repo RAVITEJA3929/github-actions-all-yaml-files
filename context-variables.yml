@@ -1,0 +1,10 @@
+name: env-var-workflow
+on:
+  workflow_dispatch:
+jobs:
+  job-1:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: using the env vars
+        run: echo "this is my first ${{github.actor}} and this ${{github.repository}}"
+      
