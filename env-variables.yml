@@ -1,0 +1,11 @@
+name: env-var-workflow
+on: push
+env:
+  API_KEY: "dev"
+jobs:
+  job-1:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: using the env vars
+        run: echo "this is my first $API_KEY"
+      
