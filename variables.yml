@@ -1,0 +1,26 @@
+name: variables-workflow
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: this is my first varible
+        run: echo "iam trying this variable called ${{ vars.jenkins_path }}"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: this is my first secret
+        run: echo "iam trying to get print the db password ${{ secrets.db_password }}"
+
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Repository Variable
+        run: echo "iam trying this variable called ${{ vars.jenkins_path }}"
+
+      - name: Print Database Secret
+        run: echo "iam trying to get print the db password ${{ secrets.db_password }}"

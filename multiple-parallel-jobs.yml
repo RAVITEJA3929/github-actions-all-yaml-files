@@ -1,0 +1,19 @@
+name: Parallel Jobs
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Linting code..."
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running unit tests..."
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Scanning for vulnerabilities..."

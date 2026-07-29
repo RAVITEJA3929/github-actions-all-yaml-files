@@ -1,0 +1,30 @@
+name: Fan-Out Fan-In Jobs
+
+on: [push]
+
+jobs:
+  # 1. Single entry point
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Setting up environment..."
+
+  # 2. Parallel fan-out (runs after setup)
+  test-frontend:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - run: echo "Testing Frontend..."
+
+  test-backend:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - run: echo "Testing Backend..."
+
+  # 3. Fan-in (runs after BOTH parallel tests pass)
+  notify:
+    runs-on: ubuntu-latest
+    needs: [test-frontend, test-backend]
+    steps:
+      - run: echo "Pipeline passed! Sending Slack notification..."

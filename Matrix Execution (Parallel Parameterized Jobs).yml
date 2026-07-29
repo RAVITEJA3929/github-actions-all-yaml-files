@@ -1,0 +1,17 @@
+name: Matrix Jobs
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [18, 20]
+    # This generates 6 parallel jobs (3 OS x 2 Node versions)
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: echo "Testing on ${{ matrix.os }} with Node ${{ matrix.node-version }}"
