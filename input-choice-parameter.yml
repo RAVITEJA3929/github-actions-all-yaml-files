@@ -1,0 +1,20 @@
+name: env-var-workflow
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: this is choice
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - uat
+          - test
+jobs:
+  job-1:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: using the env vars
+        run: echo "this is my first ${{ inputs.environment}}"
+      
