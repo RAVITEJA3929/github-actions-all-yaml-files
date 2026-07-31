@@ -1,0 +1,13 @@
+name: output-var-workflow
+on:
+  push: 
+jobs:
+  job-1:
+    runs-on: ubuntu-22.04
+    steps:
+     - name: step1
+       id: step1
+       run: echo "version=0.1" >> $GITHUB_OUTPUT
+     - name: step2
+       run: echo "the version of github is ${{ steps.step1.outputs.version }}"
+      
