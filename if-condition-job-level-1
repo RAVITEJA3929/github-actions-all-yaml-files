@@ -1,0 +1,25 @@
+name: if-condition-job-level
+on:
+  push:
+    branches:
+      - main
+      - test
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: this will run on if condition with main branch with main branch
+        run: echo "if pull requests works it will execute"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    steps:
+      - name: this will runs on AND conddition
+        run: echo "if AND condition works the job will execute"
+      
