@@ -1,6 +1,6 @@
 name: if-condition-wf
 on:
-  push
+  push:
     branches:
       - main
       - test
