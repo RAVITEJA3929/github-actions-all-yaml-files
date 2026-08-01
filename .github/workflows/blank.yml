@@ -1,0 +1,16 @@
+name: if-condition-wf
+on:
+  push
+    branches:
+      - main
+      - test
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: this is using the if condition
+        if: github.ref =='ref/heads/main'
+        run: echo "this is will runif main push happen"
+      - name: this is run manuall
+        run: echo "this is run manual"
+      
