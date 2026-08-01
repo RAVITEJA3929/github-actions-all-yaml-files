@@ -1,0 +1,12 @@
+name: if-condition-job-level
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: this if condition job level
+        run: echo "this will run the job level"
