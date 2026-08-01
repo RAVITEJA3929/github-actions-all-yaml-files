@@ -1,11 +1,16 @@
-name: test-workflow
-on: workflow_dispatch
+name: if-condition-wf
+on:
+  push:
+    branches:
+      - main
+      - test
 jobs:
-  job-1:
-    runs-on: ubuntu-22.04
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - run: echo "Step 1"
-      - run: date
-      - run: hostname
-      - run: free -h
-      - run: df -h
+      - name: this is using the if condition
+        if: github.ref =='ref/heads/main'
+        run: echo "this is will runif main push happen"
+      - name: this is run manuall
+        run: echo "this is run manual"
+      
