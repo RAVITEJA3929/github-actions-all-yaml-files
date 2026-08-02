@@ -1,0 +1,49 @@
+name: If Condition Functions
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature
+jobs:
+  quality-check:
+    if: startsWith(github.ref_name, 'feature') && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run if condition functions
+      run: |
+        echo "This job runs only for feature branches on push events."
+  develop-check:
+    if: github.ref_name == 'develop' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run develop check
+      run: |
+        echo "This job runs only for the develop branch on push events."
+  main-check:
+    if: github.ref_name == 'main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run main check
+      run: |
+        echo "This job runs only for the main branch on push events."
+
+  success-notification:
+    needs: [quality-check, develop-check, main-check]
+    # This checks if the overall workflow succeeded, ignoring the intentionally skipped branch jobs
+    if: always() && (needs.quality-check.result == 'success' || needs.develop-check.result == 'success' || needs.main-check.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send success notification
+      run: |
+        echo "All checks passed successfully."
+
+  failure-notification:
+    needs: [quality-check, develop-check, main-check]
+    # This triggers if any of the three executed branch checks actually failed
+    if: always() && (needs.quality-check.result == 'failure' || needs.develop-check.result == 'failure' || needs.main-check.result == 'failure')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send failure notification
+      run: |
+        echo "One or more checks failed."
